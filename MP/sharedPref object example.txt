@@ -1,0 +1,29 @@
+#add to shared pref
+
+List<ItemMenu> cartItems=new ArrayList<>();
+
+cartItems.add(new ItemMenu("1","First Item","$123","https://vedh.000webhostapp.com/images/dow.png"));
+
+ SharedPreferences appSharedPrefs = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
+
+  Editor prefsEditor = appSharedPrefs.edit();
+
+  Gson gson = new Gson();
+
+  String jsonCart= gson.toJson(cartItems);
+
+  prefsEditor.putString("MyCart", jsonCart);
+
+  prefsEditor.commit(); 
+
+#get from shred pref
+
+SharedPreferences appSharedPrefs = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
+ 
+Gson gson = new Gson();
+
+String json = appSharedPrefs.getString("MyCart");
+
+Type type = new TypeToken<List<ItemMenu>>(){}.getType();
+
+List<Student> students= gson.fromJson(json, type);
